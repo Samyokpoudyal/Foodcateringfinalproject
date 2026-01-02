@@ -170,45 +170,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
-# # settings.py
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'poudyalsamyok@gmail.com'
-# EMAIL_HOST_PASSWORD = 'your-app-password'
-# DEFAULT_FROM_EMAIL = 'Food Catering <your-email@gmail.com>'
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'poudyalsamyok640@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = '@@@@@@'
-# 
-# DEFAULT_FROM_EMAIL = 'poudyalsamyok@gmail.com'
+EMAIL_HOST_PASSWORD = '[][][][][][][][][][]'
 
-
-# # Force allauth to request email from Google
-# ACCOUNT_EMAIL_REQUIRED = True
-
-# # Determines how the user is identified (username, email, or both)
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-# # This ensures the email is saved to the User model immediately
-# SOCIALACCOUNT_QUERY_EMAIL = True
-
-
-# SOCIALACCOUNT_AUTO_SIGNUP = True
-
-# ACCOUNT_USERNAME_REQUIRED = False
-
-# ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-# ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
-# SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
-
-# # 2. This helper setting creates a username (like 'samyok') 
-# # from your email ('samyok@gmail.com') if one isn't provided.
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
