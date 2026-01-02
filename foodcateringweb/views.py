@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from .models import MenuCategory, Dish, SubItem, MenuSelection, Order, User
+from .models import MenuCategory, Dish, SubItem, MenuSelection, Order
+from django.contrib import messages
+from django.core.mail import send_mail
+
 
 # --- STATIC PAGES ---
 class AboutView(TemplateView):
@@ -14,6 +16,9 @@ class PartyPackView(TemplateView):
 
 class LunchboxPackView(TemplateView):
     template_name = "foodcateringtem/lunchbox.html"
+    
+class CateringView(TemplateView):
+    template_name = "foodcateringtem/catering.html"
 
 # --- LIST VIEWS FOR MENUS ---
 class MenuItemsView(ListView):
@@ -122,8 +127,25 @@ def lunchbox_view(request):
         'categories': categories,
         'service_type': 'lunchbox'
     })
+    
+    
+def catering_menu_view(request):
+    categories = MenuCategory.objects.filter(service_type='catering').prefetch_related('dishes__subitems')
+    # print('dfsdsf')
+    # if request.method == 'POST':
+    #     order, category = process_menu_order(
+    #         request,
+    #         request.POST.get('category_id'),
+    #         request.POST.get('event_date')
+    #     )
+    #     send_order_confirmation_email(request.user, order, category)
+    #     return redirect('success')
 
-@login_required
+    return render(request, 'foodcateringtem/cateringservicemenu.html', {
+        'categories': categories,
+        'service_type': 'catering'
+    })
+
 def catering_view(request):
     categories = MenuCategory.objects.filter(service_type='catering').prefetch_related('dishes__subitems')
     
@@ -140,3 +162,32 @@ def catering_view(request):
         'categories': categories,
         'service_type': 'catering'
     })
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+        contact=request.POST.get("phone")
+
+        full_message = f"""
+Name: {name}
+Email: {email}
+contact:{contact}
+Message:
+{message}
+"""
+
+        send_mail(
+            subject,
+            full_message,
+            
+            email,
+            ["poudyalsamyok@gmail.com"],
+            fail_silently=False,
+        )
+
+        messages.success(request, "Message sent successfully!")
+        return redirect("foodcateringweb.home") 

@@ -4,12 +4,24 @@
 
 {% block maincontent %}
 
+  {% if messages %}
+  <div id="messages-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 space-y-2">
+    {% for message in messages %}
+      <div class="relative mb-2 p-4 rounded-lg bg-green-100 text-green-700 shadow-lg flex items-center justify-between min-w-[300px] max-w-md">
+        <span>{{ message }}</span>
+        <button onclick="this.parentElement.remove()" class="ml-4 text-green-800 font-bold">&times;</button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
   <!-- Hero Section -->
   <section class="h-screen bg-[url('{% static "bg-img.jpg" %}')] bg-cover bg-center flex items-center justify-center">
     <div class="text-center text-white px-4">
       <h2 class="text-5xl font-bold mb-4">Premium Catering for Every Occasion</h2>
       <p class="text-lg mb-6">Delight your guests with our world-class food and service.</p>
-      <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full transition">Explore Services</a>
+      <a href="#services" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full transition">Explore Services</a>
     </div>
   </section>
  
@@ -58,43 +70,58 @@
 
   </div>
 </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 px-8 bg-white text-center">
+<!-- Contact Section -->
+<section id="contact" class="py-20 px-8 bg-white text-center">
   <h2 class="text-3xl font-bold mb-6 text-amber-600">Contact Us</h2>
-  <p class="text-gray-600 mb-8">We’d love to make your next event unforgettable. Reach out to us today!</p>
+  <p class="text-gray-600 mb-8">
+    We’d love to make your next event unforgettable. Reach out to us today!
+  </p>
 
-  <form action="mailto:poudyalsamyok@gmail.com" method="POST" enctype="text/plain" class="max-w-xl mx-auto text-left">
+  <form action="{% url 'contact' %}" method="POST" class="max-w-xl mx-auto text-left">
+    {% csrf_token %}
+
+    <!-- Name -->
     <div class="mb-4">
       <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
       <input type="text" id="name" name="name" required 
-             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-600">
     </div>
 
+    <!-- Email -->
     <div class="mb-4">
       <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
       <input type="email" id="email" name="email" required 
-             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-600">
     </div>
 
+    <!-- Phone / Contact Number -->
+    <div class="mb-4">
+      <label for="phone" class="block text-gray-700 font-semibold mb-2">Contact Number</label>
+      <input type="tel" id="phone" name="phone" required 
+             placeholder="e.g., +977 98XXXXXXXX" 
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-600">
+    </div>
+
+    <!-- Subject -->
     <div class="mb-4">
       <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject</label>
       <input type="text" id="subject" name="subject" required 
-             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-600">
     </div>
 
+    <!-- Message -->
     <div class="mb-6">
       <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
-      <textarea id="message" name="message" rows="5" required
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"></textarea>
+      <textarea id="message" name="message" rows="5" required 
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-600"></textarea>
     </div>
 
-    <button type="submit" 
-            class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-full transition">
+    <button type="submit" class="w-full bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
       Send Message
     </button>
   </form>
 </section>
+
 
   
 

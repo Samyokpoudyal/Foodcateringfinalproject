@@ -4,7 +4,7 @@ from register.views import logout_view, profile
 from .views import (
     AboutView, lunchbox_view, catering_view, 
     MenuItemsView, BookingServiceView, party_pack_menu_view,
-    LunchboxMenuItemsView, PartyPackView, LunchboxPackView
+    LunchboxMenuItemsView, PartyPackView, LunchboxPackView,contact,CateringView,catering_menu_view
 )
 
 urlpatterns = [
@@ -13,10 +13,10 @@ urlpatterns = [
     # Function-based views for services
     path("partypack/", party_pack_menu_view, name='party'),
     path("partypackview/", PartyPackView.as_view(), name='partypackview'),
+    path("catering_menu/", catering_menu_view, name='cateringmenu'),
     path("lunchboxview/", LunchboxPackView.as_view(), name='lunchboxview'),
     path("lunchbox/", lunchbox_view, name='lunchbox'),
-    path("catering/", catering_view, name='catering'),
-    
+    path("catering/", CateringView.as_view(), name='catering'),
     # Menu pages (ListView)
     path("menu/", MenuItemsView.as_view(), name='menuitemsview'),
     path("lmenu/", LunchboxMenuItemsView.as_view(), name='lunchboxmenuitemsview'),
@@ -34,4 +34,5 @@ urlpatterns = [
     # Booking and success pages
     path("booking/", BookingServiceView.as_view(), name='booking'),
     path("success/", BookingServiceView.as_view(), name='success'), 
+    path("contact/", contact, name="contact"),
 ]

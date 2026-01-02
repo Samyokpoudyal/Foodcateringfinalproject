@@ -1,0 +1,82 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+
+<section class="py-16 bg-slate-100">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- TITLE -->
+    <div class="text-center mb-14">
+      <p class="text-sm tracking-widest text-emerald-600 font-semibold uppercase mb-2">
+        Freshly Crafted
+      </p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900">
+        Our <span class="text-emerald-600">Menu</span>
+      </h1>
+      <div class="mt-4 flex justify-center">
+        <span class="w-16 h-1 bg-emerald-600 rounded-full"></span>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+
+      <!-- IMAGE COLUMN -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 rounded-3xl overflow-hidden shadow-lg bg-white">
+          <img src="{% static 'bg-img.jpg' %}" alt="Catering"
+               class="w-full h-96 object-cover transition-transform duration-500 hover:scale-105">
+          <div class="p-4 text-center text-sm font-medium text-slate-700">
+            Fresh • Hygienic • Delicious
+          </div>
+        </div>
+      </div>
+
+      <!-- MENU COLUMN -->
+      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+
+        {% for category in categories %}
+        <!-- CARD -->
+        <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 flex flex-col h-full border border-slate-200 overflow-hidden">
+
+          <!-- HEADER -->
+          <div class="px-6 py-6 text-center bg-gradient-to-r from-emerald-400 to-emerald-500">
+            <h2 class="text-xl font-extrabold text-white tracking-wide">{{ category.name }}</h2>
+          </div>
+
+          <!-- ITEMS -->
+          <div class="px-6 py-5 flex-grow space-y-4 overflow-y-auto">
+
+            {% for dish in category.dishes.all %}
+            <div class="border-b border-slate-100 pb-3 last:border-b-0">
+
+              {% if not dish.subitems.all %}
+                <p class="text-sm font-medium text-slate-800 hover:text-emerald-600 transition">
+                  {{ dish.name }}
+                </p>
+              {% else %}
+                <p class="font-semibold text-slate-900 mb-2">{{ dish.name }}</p>
+                <div class="flex flex-wrap gap-2">
+                  {% for sub in dish.subitems.all %}
+                    <span class="bg-emerald-100 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
+                      {{ sub.name }}
+                    </span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
